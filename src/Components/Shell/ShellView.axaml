@@ -1,0 +1,66 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rxui="http://reactiveui.net"
+        xmlns:local="clr-namespace:OikClientDraft.Components.Shell"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="OikClientDraft.Components.Shell.ShellView"
+        x:DataType="local:ShellViewModel"
+        Icon="/Assets/favicon.ico"
+        Title="{Binding WindowTitle}"
+        Width="{Binding WindowWidth}"
+        Height="{Binding WindowHeight}">
+
+    <Design.DataContext>
+        <local:ShellViewModel />
+    </Design.DataContext>
+
+    <Panel>
+        <Grid RowDefinitions="Auto,*,Auto"
+              ColumnDefinitions="*,250">
+            <Panel Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Classes="TopPanel">
+                <StackPanel>
+                    <!-- TODO кнопки перехода на разные страницы или ещё что-то другое -->
+                    <Button Command="{Binding ShowCanvas1Command}">Схема</Button>
+                    <Button Command="{Binding ShowCanvas2Command}">Схема с подложкой</Button>
+                    <Button Command="{Binding ShowSvg1Command}">SVG</Button>
+                    <Button Command="{Binding ShowTable1Command}">Табличная форма</Button>
+                </StackPanel>
+            </Panel>
+
+            <Panel Grid.Row="1"
+                   Grid.Column="0"
+                   Classes="MainContent">
+                <rxui:RoutedViewHost Router="{Binding Router}" />
+            </Panel>
+
+            <Panel Grid.Row="1"
+                   Grid.Column="1"
+                   Classes="RightPanel">
+                <ContentControl Content="{Binding RightPanel}" />
+            </Panel>
+
+            <Panel Grid.Row="2"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Classes="BottomPanel">
+                <StackPanel>
+                    <!-- TODO кнопки воздействия на режимы работы или ещё что-то другое -->
+                    <ToggleButton IsChecked="{Binding IsShowAnalogs}">Показывать измерения</ToggleButton>
+                </StackPanel>
+            </Panel>
+        </Grid>
+
+        <Panel IsVisible="{Binding IsBusy}"
+               Background="#CC000000">
+            <TextBlock Text="{Binding BusyMessage}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="#FFFFFF" />
+        </Panel>
+    </Panel>
+</Window>

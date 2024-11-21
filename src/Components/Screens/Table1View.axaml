@@ -1,0 +1,79 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:OikClientDraft.Components.Screens"
+             xmlns:tm="clr-namespace:Iface.Oik.Tm.Interfaces;assembly=Iface.Oik.Tm"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="OikClientDraft.Components.Screens.Table1View"
+             x:DataType="local:Table1ViewModel">
+
+    <Design.DataContext>
+        <local:Table1ViewModel />
+    </Design.DataContext>
+
+    <Grid Margin="8,4,8,4"
+          RowDefinitions="Auto,*"
+          ColumnDefinitions="*,*">
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Text="Табличная форма"
+                   Margin="0,0,0,8"/>
+        
+        <DataGrid Grid.Row="1"
+                  Grid.Column="0"
+                  ItemsSource="{Binding Statuses}"
+                  IsReadOnly="True"
+                  CanUserResizeColumns="True"
+                  FontSize="8"
+                  Margin="0,0,8,0">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Наименование">
+                    <DataTemplate DataType="tm:TmStatus">
+                        <TextBlock Text="{Binding Name}"
+                                   MaxWidth="200"
+                                   TextTrimming="CharacterEllipsis" />
+                    </DataTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Состояние">
+                    <DataTemplate DataType="tm:TmStatus">
+                        <TextBlock Text="{Binding ValueToDisplay}"
+                                   MaxWidth="100"
+                                   TextTrimming="CharacterEllipsis" />
+                    </DataTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <DataGrid Grid.Row="1"
+                  Grid.Column="1"
+                  ItemsSource="{Binding Analogs}"
+                  IsReadOnly="True"
+                  FontSize="8"
+                  Margin="8,0,0,0">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Наименование">
+                    <DataTemplate DataType="tm:TmAnalog">
+                        <TextBlock Text="{Binding Name}"
+                                   MaxWidth="200"
+                                   TextTrimming="CharacterEllipsis" />
+                    </DataTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Значение">
+                    <DataTemplate DataType="tm:TmAnalog">
+                        <TextBlock Text="{Binding ValueString}"
+                                   MaxWidth="50"
+                                   HorizontalAlignment="Right"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Ед. изм.">
+                    <DataTemplate DataType="tm:TmAnalog">
+                        <TextBlock Text="{Binding Unit}"
+                                   MaxWidth="50" />
+                    </DataTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

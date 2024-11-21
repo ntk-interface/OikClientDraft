@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:OikClientDraft.Components.Panels"
+             xmlns:converters="clr-namespace:OikClientDraft.Infrastructure.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="OikClientDraft.Components.Panels.RightPanelView"
+             x:DataType="local:RightPanelViewModel">
+
+    <Design.DataContext>
+        <local:RightPanelViewModel />
+    </Design.DataContext>
+
+    <!-- TODO что вообще нужно в правой панели -->
+    <Panel Margin="8,0,8,0">
+        <ItemsControl ItemsSource="{Binding Alerts}"
+                      Background="Transparent">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid RowDefinitions="Auto,Auto"
+                          ColumnDefinitions="*,*"
+                          Background="{Binding Importance, Converter={x:Static converters:Converters.ImportanceToTransparentColorConverter}}">
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Text="{Binding Name}"
+                                   TextTrimming="CharacterEllipsis"
+                                   FontSize="12"
+                                   Margin="0,4,0,4"/>
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="{Binding OnTime}"
+                                   FontSize="10"
+                                   Opacity=".54"
+                                   Margin="0,0,0,4"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="1"
+                                   Text="{Binding CurrentValueString}"
+                                   FontSize="12"
+                                   Margin="8,0,0,4"
+                                   VerticalAlignment="Center" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Panel>
+</UserControl>
